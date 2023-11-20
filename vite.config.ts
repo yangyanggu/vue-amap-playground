@@ -16,6 +16,7 @@ const pathSrc = path.resolve(__dirname, 'src')
 export default defineConfig(async () => {
   const repl = await getPackageInfo('@vue/repl')
   return {
+    base: '/vue-amap-playground/',
     resolve: {
       alias: {
         '@': pathSrc,
