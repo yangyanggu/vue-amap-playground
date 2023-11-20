@@ -23,7 +23,7 @@ stages:
         artifacts:
           - name: DOCS
             path:
-              - ./docs/.vuepress/dist
+              - ./dist
         caches:
           - ./.pnpm-store
           - ./.npm
@@ -40,9 +40,10 @@ stages:
             dependArtifact: DOCS
         script:
           - cd /opt/giteeDownload/
+          - rm -rf dist
           - tar -zxvf dist.tar.gz
-          - 'rm -rf /opt/docs/vue3/vue-amap/* '
-          - cp -r /opt/giteeDownload/dist/* /opt/docs/vue3/vue-amap/
+          - 'rm -rf /opt/docs/run/amap/* '
+          - cp -r /opt/giteeDownload/dist/* /opt/docs/run/amap/
         strategy:
           retry: '0'
         dependsOn: build_nodejs
