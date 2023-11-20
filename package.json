@@ -1,0 +1,57 @@
+{
+  "name": "vue-amap-playground",
+  "version": "0.0.1",
+  "packageManager": "pnpm@8.10.0",
+  "description": "Element Plus Playground",
+  "type": "module",
+  "keywords": [
+    "@vuemap-vue-amap",
+    "@vuemap-vue-amap-loca",
+    "@vuemap-vue-amap-extra",
+    "playground",
+    "repl"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint --cache --max-warnings 0 .",
+    "lint:fix": "pnpm run lint --fix",
+    "typecheck": "vue-tsc --noEmit",
+    "release": "bumpp"
+  },
+  "dependencies": {
+    "@unocss/reset": "^0.57.1",
+    "@vue/repl": "^2.6.1",
+    "@vueuse/core": "^10.5.0",
+    "element-plus": "^2.4.1",
+    "semver": "^7.5.4",
+    "vue": "^3.3.7"
+  },
+  "devDependencies": {
+    "@iconify-json/ri": "^1.1.12",
+    "@sxzz/eslint-config": "^3.7.0",
+    "@sxzz/prettier-config": "^1.0.4",
+    "@types/node": "^20.8.9",
+    "@types/semver": "^7.5.4",
+    "@unocss/transformer-directives": "^0.57.1",
+    "@vitejs/plugin-vue": "^4.4.0",
+    "@vue/runtime-core": "^3.3.7",
+    "@vue/tsconfig": "^0.4.0",
+    "bumpp": "^9.2.0",
+    "eslint": "^8.52.0",
+    "local-pkg": "^0.5.0",
+    "prettier": "^3.0.3",
+    "sass": "^1.69.5",
+    "typescript": "^5.2.2",
+    "unocss": "^0.57.1",
+    "unplugin-auto-import": "^0.16.7",
+    "unplugin-vue-components": "^0.25.2",
+    "vite": "^4.5.0",
+    "vite-plugin-inspect": "^0.7.41",
+    "vite-plugin-mkcert": "^1.16.0",
+    "vue-tsc": "^1.8.22"
+  },
+  "prettier": "@sxzz/prettier-config"
+}
