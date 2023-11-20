@@ -4,7 +4,7 @@
     "jsx": "preserve",
     "module": "ESNext",
     "moduleResolution": "Bundler",
-    "types": ["element-plus/global.d.ts"],
+    "types": ["@vuemap/vue-amap/global.d.ts","@vuemap/vue-amap-loca/global.d.ts","@vuemap/vue-amap-extra/global.d.ts"],
     "allowImportingTsExtensions": true,
     "allowJs": true,
     "checkJs": true
