@@ -86,7 +86,7 @@ function refreshView() {
         v="mid"
         top="-2px"
         alt="logo"
-        src="../assets/logo.svg"
+        src="../assets/logo.png"
       />
       <div lt-sm-hidden flex="~ gap-1" items-center>
         <div text-xl>@vuemap/vue-amap Playground fork自Element-plus</div>
@@ -135,7 +135,7 @@ function refreshView() {
           @click="toggleDark()"
         />
         <a
-          href="https://gitee.com/guyangyang/vue-amap-playground"
+          href="https://github.com/yangyanggu/vue-amap-playground"
           target="_blank"
           flex
           hover:color-primary

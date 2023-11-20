@@ -8,8 +8,22 @@ setupElementPlus()
   <App />
 </template>
 <style>
+*{
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+html, body{
+  height: 100%;
+}
+#app{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 20px;
+}
 .map-page-container{
-  height: 600px;
+  flex: 1;
 }
 .toolbar{
   padding: 6px 12px;
