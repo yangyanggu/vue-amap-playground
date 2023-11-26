@@ -1,18 +1,10 @@
-import { getCurrentInstance } from 'vue'
 import {initAMapApiLoader} from '@vuemap/vue-amap'
-// import VueAmap, {initAMapApiLoader} from '@vuemap/vue-amap'
-// import VueAMapLoca from '@vuemap/vue-amap-loca';
-// import VueAMapExtra from '@vuemap/vue-amap-extra';
 
 let installed = false
 await loadStyle()
 
-export function setupElementPlus() {
+export function setupLoader() {
   if (installed) return
-  const instance = getCurrentInstance()
-  // instance.appContext.app.use(VueAmap)
-  // instance.appContext.app.use(VueAMapLoca)
-  // instance.appContext.app.use(VueAMapExtra)
   installed = true
   initAMapApiLoader({
     key: '131de8dce165c06abe06564c351099f3',
@@ -20,7 +12,7 @@ export function setupElementPlus() {
     Loca: {
       version: '2.0.0'
     },
-    plugins: []
+    plugins: ['AMap.HawkEye', 'AMap.DistrictSearch']
   })
 }
 

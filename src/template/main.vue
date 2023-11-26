@@ -1,7 +1,7 @@
 <script setup>
 import App from './App.vue'
-import { setupElementPlus } from './element-plus.js'
-setupElementPlus()
+import { setupLoader } from './vue-amap.js'
+setupLoader()
 </script>
 
 <template>

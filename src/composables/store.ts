@@ -5,7 +5,7 @@ import { type ImportMap, mergeImportMap } from '@/utils/import-map'
 import { IS_DEV } from '@/constants'
 import mainCode from '../template/main.vue?raw'
 import welcomeCode from '../template/welcome.vue?raw'
-import elementPlusCode from '../template/element-plus.js?raw'
+import vueAmapCode from '../template/vue-amap.js?raw'
 import tsconfigCode from '../template/tsconfig.json?raw'
 import type { UnwrapNestedRefs } from 'vue'
 
@@ -15,7 +15,12 @@ export interface Initial {
   userOptions?: UserOptions
   pr?: string | null
 }
-export type VersionKey = 'vue' | '@vuemap/vue-amap' | 'typescript' | '@vuemap/vue-amap-loca' | '@vuemap/vue-amap-extra'
+export type VersionKey =
+  | 'vue'
+  | '@vuemap/vue-amap'
+  | 'typescript'
+  | '@vuemap/vue-amap-loca'
+  | '@vuemap/vue-amap-extra'
 export type Versions = Record<VersionKey, string>
 export interface UserOptions {
   styleSource?: string
@@ -27,7 +32,7 @@ export type SerializeState = Record<string, string> & {
 
 const MAIN_FILE = 'src/PlaygroundMain.vue'
 const APP_FILE = 'src/App.vue'
-const ELEMENT_PLUS_FILE = 'src/element-plus.js'
+const ELEMENT_PLUS_FILE = 'src/vue-amap.js'
 const LEGACY_IMPORT_MAP = 'src/import_map.json'
 export const IMPORT_MAP = 'import-map.json'
 export const TSCONFIG = 'tsconfig.json'
@@ -108,7 +113,7 @@ export const useStore = (initial: Initial) => {
   })
 
   watch(
-    () => versions["@vuemap/vue-amap"],
+    () => versions['@vuemap/vue-amap'],
     (version) => {
       const file = new File(
         ELEMENT_PLUS_FILE,
@@ -124,12 +129,8 @@ export const useStore = (initial: Initial) => {
   function generateElementPlusCode(version: string, styleSource?: string) {
     const style = styleSource
       ? styleSource.replace('#VERSION#', version)
-      : genCdnLink(
-          '@vuemap/vue-amap',
-          version,
-          '/dist/style.css'
-        )
-    return elementPlusCode.replace('#STYLE#', style)
+      : genCdnLink('@vuemap/vue-amap', version, '/dist/style.css')
+    return vueAmapCode.replace('#STYLE#', style)
   }
 
   async function setVueVersion(version: string) {
@@ -330,8 +331,14 @@ export const useStore = (initial: Initial) => {
       case 'vue':
         await setVueVersion(version)
         break
-      case 'elementPlus':
-        versions.elementPlus = version
+      case '@vuemap/vue-amap':
+        versions['@vuemap/vue-amap'] = version
+        break
+      case '@vuemap/vue-amap-loca':
+        versions['@vuemap/vue-amap-loca'] = version
+        break
+      case '@vuemap/vue-amap-extra':
+        versions['@vuemap/vue-amap-extra'] = version
         break
       case 'typescript':
         versions.typescript = version
