@@ -202,7 +202,7 @@ export const useStore = (initial: Initial) => {
       for (let [filename, file] of Object.entries(saved)) {
         if (filename === '_o') continue
         if (
-          ![IMPORT_MAP, TSCONFIG].includes(filename) &&
+          ![IMPORT_MAP, TSCONFIG, GLOBAL_TS_FILE].includes(filename) &&
           !filename.startsWith('src/')
         ) {
           filename = `src/${filename}`
