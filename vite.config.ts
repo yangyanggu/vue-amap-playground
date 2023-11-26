@@ -9,6 +9,7 @@ import AutoImport from 'unplugin-auto-import/vite'
 import Inspect from 'vite-plugin-inspect'
 import Mkcert from 'vite-plugin-mkcert'
 import { getPackageInfo } from 'local-pkg'
+import viteCompression from 'vite-plugin-compression'
 import pkg from './package.json'
 
 const pathSrc = path.resolve(__dirname, 'src')
@@ -59,9 +60,12 @@ export default defineConfig(async () => {
       }),
       Unocss(),
       Mkcert({
-        source: 'coding'
+        source: 'coding',
       }),
       Inspect(),
+      viteCompression({
+        threshold: 20480,
+      }),
     ],
     optimizeDeps: {
       exclude: ['@vue/repl'],

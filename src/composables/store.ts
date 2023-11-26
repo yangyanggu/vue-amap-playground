@@ -7,6 +7,7 @@ import mainCode from '../template/main.vue?raw'
 import welcomeCode from '../template/welcome.vue?raw'
 import vueAmapCode from '../template/vue-amap.js?raw'
 import tsconfigCode from '../template/tsconfig.json?raw'
+import globalTsCode from '../template/global.d.ts?raw'
 import type { UnwrapNestedRefs } from 'vue'
 
 export interface Initial {
@@ -34,6 +35,7 @@ const MAIN_FILE = 'src/PlaygroundMain.vue'
 const APP_FILE = 'src/App.vue'
 const ELEMENT_PLUS_FILE = 'src/vue-amap.js'
 const LEGACY_IMPORT_MAP = 'src/import_map.json'
+const GLOBAL_TS_FILE = 'typings/glbal.d.ts'
 export const IMPORT_MAP = 'import-map.json'
 export const TSCONFIG = 'tsconfig.json'
 
@@ -223,6 +225,9 @@ export const useStore = (initial: Initial) => {
     }
     if (!files[TSCONFIG]) {
       files[TSCONFIG] = new File(TSCONFIG, tsconfigCode)
+    }
+    if(!files[GLOBAL_TS_FILE]) {
+      files[GLOBAL_TS_FILE] = new File(GLOBAL_TS_FILE, globalTsCode)
     }
     return files
   }
