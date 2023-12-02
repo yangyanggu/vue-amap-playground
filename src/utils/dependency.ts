@@ -46,10 +46,12 @@ export const genVueLink = (version: string) => {
   }
 }
 
-export const genImportMap = (
-  { vue, elementPlus }: Partial<Versions> = {},
-  nightly: boolean
-): ImportMap => {
+export const genImportMap = ({
+  vue,
+  amap,
+  loca,
+  extra,
+}: Partial<Versions> = {}): ImportMap => {
   const deps: Record<string, Dependency> = {
     vue: {
       pkg: '@vue/runtime-dom',
@@ -62,18 +64,23 @@ export const genImportMap = (
     },
     '@vuemap/vue-amap': {
       pkg: '@vuemap/vue-amap',
-      version: elementPlus,
+      version: amap,
       path: '/dist/index.es.js',
     },
     '@vuemap/vue-amap-loca': {
       pkg: '@vuemap/vue-amap-loca',
-      version: elementPlus,
+      version: loca,
       path: '/dist/index.es.js',
     },
     '@vuemap/vue-amap-extra': {
       pkg: '@vuemap/vue-amap-extra',
-      version: elementPlus,
+      version: extra,
       path: '/dist/index.es.js',
+    },
+    three: {
+      pkg: 'three',
+      version: '0.143.0',
+      path: '/build/three.module.js',
     },
   }
 
@@ -115,10 +122,9 @@ export const getSupportedTSVersions = () => {
 }
 
 export const getSupportedMapVersions = (pkgName: string) => {
-    const pkg = computed(() => pkgName
-    )
-    const versions = getVersions(pkg)
-    return computed(() => {
-        return versions.value.filter((version) => gte(version, '2.0.0'))
-    })
+  const pkg = computed(() => pkgName)
+  const versions = getVersions(pkg)
+  return computed(() => {
+    return versions.value.filter((version) => gte(version, '2.0.0'))
+  })
 }

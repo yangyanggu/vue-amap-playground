@@ -13,7 +13,6 @@ const replVersion = import.meta.env.REPL_VERSION
 const emit = defineEmits<{
   (e: 'refresh'): void
 }>()
-const nightly = ref(false)
 const dark = useDark()
 const toggleDark = useToggle(dark)
 
@@ -28,20 +27,20 @@ interface Version {
 }
 
 const versions = reactive<Record<VersionKey, Version>>({
-  '@vuemap/vue-amap': {
+  amap: {
     text: '@vuemap/vue-amap',
     published: getSupportedMapVersions('@vuemap/vue-amap'),
-    active: store.versions['@vuemap/vue-amap'],
+    active: store.versions.amap,
   },
-  '@vuemap/vue-amap-loca': {
+  loca: {
     text: '@vuemap/vue-amap-loca',
     published: getSupportedMapVersions('@vuemap/vue-amap-loca'),
-    active: store.versions['@vuemap/vue-amap-loca'],
+    active: store.versions.loca,
   },
-  '@vuemap/vue-amap-extra': {
+  extra: {
     text: '@vuemap/vue-amap-extra',
     published: getSupportedMapVersions('@vuemap/vue-amap-extra'),
-    active: store.versions['@vuemap/vue-amap-extra'],
+    active: store.versions.extra,
   },
   vue: {
     text: 'Vue',
@@ -59,11 +58,6 @@ async function setVersion(key: VersionKey, v: string) {
   versions[key].active = `loading...`
   await store.setVersion(key, v)
   versions[key].active = v
-}
-
-const toggleNightly = () => {
-  store.toggleNightly(nightly.value)
-  setVersion('elementPlus', 'latest')
 }
 
 async function copyLink() {
@@ -116,13 +110,6 @@ function refreshView() {
           </el-option>
         </el-select>
 
-        <el-checkbox
-          v-if="key === 'elementPlus'"
-          v-model="nightly"
-          @change="toggleNightly"
-        >
-          nightly
-        </el-checkbox>
       </div>
 
       <div flex="~ gap-4" text-lg>

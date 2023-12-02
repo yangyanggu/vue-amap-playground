@@ -10,18 +10,18 @@ import tsconfigCode from '../template/tsconfig.json?raw'
 import globalTsCode from '../template/global.d.ts?raw'
 import type { UnwrapNestedRefs } from 'vue'
 
+export type VersionKey =
+  | 'vue'
+  | 'typescript'
+  | 'amap'
+  | 'loca'
+  | 'extra'
 export interface Initial {
   serializedState?: string
   versions?: Versions
   userOptions?: UserOptions
   pr?: string | null
 }
-export type VersionKey =
-  | 'vue'
-  | '@vuemap/vue-amap'
-  | 'typescript'
-  | '@vuemap/vue-amap-loca'
-  | '@vuemap/vue-amap-extra'
 export type Versions = Record<VersionKey, string>
 export interface UserOptions {
   styleSource?: string
@@ -44,9 +44,9 @@ export const useStore = (initial: Initial) => {
     initial.versions ||
       ({
         vue: 'latest',
-        '@vuemap/vue-amap': 'latest',
-        '@vuemap/vue-amap-loca': 'latest',
-        '@vuemap/vue-amap-extra': 'latest',
+        amap: 'latest',
+        loca: 'latest',
+        extra: 'latest',
         typescript: 'latest',
       } satisfies Versions)
   )
@@ -72,14 +72,14 @@ export const useStore = (initial: Initial) => {
     resetFlip: false,
     locale: undefined,
     dependencyVersion: computed(() => ({
-      '@vuemap/vue-amap': versions['@vuemap/vue-amap'],
-      '@vuemap/vue-amap-loca': versions['@vuemap/vue-amap-loca'],
-      '@vuemap/vue-amap-extra': versions['@vuemap/vue-amap-extra'],
+      '@vuemap/vue-amap': versions.amap,
+      '@vuemap/vue-amap-loca': versions.loca,
+      '@vuemap/vue-amap-extra': versions.extra,
     })),
   })
 
   const bultinImportMap = computed<ImportMap>(() =>
-    genImportMap(versions, nightly.value)
+    genImportMap(versions)
   )
   const userImportMap = computed<ImportMap>(() => {
     const code = state.files[IMPORT_MAP]?.code.trim()
@@ -115,7 +115,7 @@ export const useStore = (initial: Initial) => {
   })
 
   watch(
-    () => versions['@vuemap/vue-amap'],
+    () => versions.amap,
     (version) => {
       const file = new File(
         ELEMENT_PLUS_FILE,
@@ -336,14 +336,14 @@ export const useStore = (initial: Initial) => {
       case 'vue':
         await setVueVersion(version)
         break
-      case '@vuemap/vue-amap':
-        versions['@vuemap/vue-amap'] = version
+      case 'amap':
+        versions.amap = version
         break
-      case '@vuemap/vue-amap-loca':
-        versions['@vuemap/vue-amap-loca'] = version
+      case 'loca':
+        versions.loca = version
         break
-      case '@vuemap/vue-amap-extra':
-        versions['@vuemap/vue-amap-extra'] = version
+      case 'extra':
+        versions.extra = version
         break
       case 'typescript':
         versions.typescript = version
