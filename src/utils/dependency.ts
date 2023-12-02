@@ -76,12 +76,7 @@ export const genImportMap = ({
       pkg: '@vuemap/vue-amap-extra',
       version: extra,
       path: '/dist/index.es.js',
-    },
-    three: {
-      pkg: 'three',
-      version: '0.143.0',
-      path: '/build/three.module.js',
-    },
+    }
   }
 
   return {

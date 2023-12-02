@@ -10,12 +10,7 @@ import tsconfigCode from '../template/tsconfig.json?raw'
 import globalTsCode from '../template/global.d.ts?raw'
 import type { UnwrapNestedRefs } from 'vue'
 
-export type VersionKey =
-  | 'vue'
-  | 'typescript'
-  | 'amap'
-  | 'loca'
-  | 'extra'
+export type VersionKey = 'vue' | 'typescript' | 'amap' | 'loca' | 'extra'
 export interface Initial {
   serializedState?: string
   versions?: Versions
@@ -78,26 +73,36 @@ export const useStore = (initial: Initial) => {
     })),
   })
 
-  const bultinImportMap = computed<ImportMap>(() =>
-    genImportMap(versions)
-  )
+  const bultinImportMap = computed<ImportMap>(() => genImportMap(versions))
   const userImportMap = computed<ImportMap>(() => {
     const code = state.files[IMPORT_MAP]?.code.trim()
-    if (!code) return {}
+    if (!code)
+      return {
+        imports: {
+          three:
+            'https://fastly.jsdelivr.net/npm/three@0.143.0/build/three.module.js',
+          '@types/three':
+            'https://fastly.jsdelivr.net/npm/@types/three@0.141.0/index.d.ts',
+        },
+      }
     let map: ImportMap = {}
     try {
       map = JSON.parse(code)
+      map.imports!.three =
+        'https://fastly.jsdelivr.net/npm/three@0.143.0/build/three.module.js'
+      map.imports!['@types/three'] =
+        'https://fastly.jsdelivr.net/npm/@types/three@0.141.0/index.d.ts'
     } catch (error) {
       console.error(error)
     }
     return map
   })
-  const importMap = computed<ImportMap>(() =>
-    mergeImportMap(bultinImportMap.value, userImportMap.value)
-  )
+  const importMap = computed<ImportMap>(() => {
+    return mergeImportMap(bultinImportMap.value, userImportMap.value)
+  })
 
   // eslint-disable-next-line no-console
-  console.log('Files:', state.files, 'Options:', userOptions)
+  // console.log('Files:', state.files, 'Options:', userOptions)
 
   const store = reactive<Store>({
     state,
@@ -226,7 +231,7 @@ export const useStore = (initial: Initial) => {
     if (!files[TSCONFIG]) {
       files[TSCONFIG] = new File(TSCONFIG, tsconfigCode)
     }
-    if(!files[GLOBAL_TS_FILE]) {
+    if (!files[GLOBAL_TS_FILE]) {
       files[GLOBAL_TS_FILE] = new File(GLOBAL_TS_FILE, globalTsCode)
     }
     return files
