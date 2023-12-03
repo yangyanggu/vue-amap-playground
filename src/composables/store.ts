@@ -76,22 +76,10 @@ export const useStore = (initial: Initial) => {
   const bultinImportMap = computed<ImportMap>(() => genImportMap(versions))
   const userImportMap = computed<ImportMap>(() => {
     const code = state.files[IMPORT_MAP]?.code.trim()
-    if (!code)
-      return {
-        imports: {
-          three:
-            'https://fastly.jsdelivr.net/npm/three@0.143.0/build/three.module.js',
-          '@types/three':
-            'https://fastly.jsdelivr.net/npm/@types/three@0.141.0/index.d.ts',
-        },
-      }
+    if (!code) return {}
     let map: ImportMap = {}
     try {
       map = JSON.parse(code)
-      map.imports!.three =
-        'https://fastly.jsdelivr.net/npm/three@0.143.0/build/three.module.js'
-      map.imports!['@types/three'] =
-        'https://fastly.jsdelivr.net/npm/@types/three@0.141.0/index.d.ts'
     } catch (error) {
       console.error(error)
     }
@@ -214,6 +202,9 @@ export const useStore = (initial: Initial) => {
         }
         if (filename === LEGACY_IMPORT_MAP) {
           filename = IMPORT_MAP
+        }
+        if (filename === IMPORT_MAP) {
+          file = JSON.stringify(JSON.parse(file as string), undefined, 2)
         }
         files[filename] = new File(filename, file as string)
       }
