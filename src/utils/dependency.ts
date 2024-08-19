@@ -10,7 +10,7 @@ export interface Dependency {
   path: string
 }
 
-export type Cdn = 'unpkg' | 'jsdelivr' | 'jsdelivr-fastly'
+export type Cdn = 'unpkg' | 'jsdelivr' | 'jsdelivr-fastly' | 'gcore-jsdelivr'
 export const cdn = useLocalStorage<Cdn>('setting-cdn', 'jsdelivr-fastly')
 
 export const genCdnLink = (
@@ -26,6 +26,8 @@ export const genCdnLink = (
       return `https://fastly.jsdelivr.net/npm/${pkg}${version}${path}`
     case 'unpkg':
       return `https://unpkg.com/${pkg}${version}${path}`
+    case 'gcore-jsdelivr':
+      return `https://gcore.jsdelivr.net/npm/${pkg}${version}${path}`
   }
 }
 
